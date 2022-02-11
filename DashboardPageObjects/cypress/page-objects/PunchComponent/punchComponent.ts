@@ -1,60 +1,34 @@
-import { PunchElements } from './punchElements'
-import { PunchMethods } from './dependencies/PunchMethods'
-import { PunchTypes } from './dependencies/PunchTypes'
-import { Punch } from './dependencies/punchModel'
-import { PunchBuilder, AddPunch } from './dependencies/PunchBuilder'
+import { AddPunch, PunchBuilder, PunchButtonByType, SetBranch, SetDepartment, SetDivision, SetNote } from './dependencies'
+import { PunchLocators } from './punchLocators'
 
-//Elements
-const punchButton = () => cy.get(PunchElements.BTN_PUNCH)
+function createDashboardPunch(punch: AddPunch): PunchBuilder {
 
-const manualPunchButton = () => cy.get(PunchElements.BTN_MANPUNCH)
- 
-const regPunchNoteTextField = () => cy.get(PunchElements.TXTBOX_REGPUNCH_NOTE)
+  let dashboardPunch = new PunchBuilder()
+    .punchType(punch.punchType)
+    .punchMethod(punch.punchMethod)
+    .notes(punch.note)
+    .branch(punch.branch)
+    .division(punch.division)
+    .department(punch.department)
+    .build()
 
-const manualPunchNoteTextField = () => cy.get(PunchElements.TXTBOX_MANPUNCH_NOTE)
-
-//Methods
-function addPunch(punch: AddPunch): any {
-
-  const punchWithNotes = new PunchBuilder()
-  .punchType(punch.punchType)
-  .punchMethod(punch.punchMethod)
-  .notes(punch.note)
-  .branch(punch.branch)
-  .division(punch.division)
-  .department(punch.department)
-  .build()
-
-  return punchWithNotes
+  return dashboardPunch
   }
 
 
 function validateCostCenterText(expectedCostcenterDisplayed: string) {
-  return cy.get(PunchElements.TXT_COSTCENTER).should('contain', expectedCostcenterDisplayed)
+  return cy.get(PunchLocators.TXT_COSTCENTER).should('contain', expectedCostcenterDisplayed)
 }
 
-function setPunchNote(note: string): Cypress.Chainable<JQuery<HTMLElement>> {
-  return cy.get('').type(note)
-}
+let pauseBetweenPunches = () => cy.wait(65000)
 
-function setDivision(division: string) {
-  //click the Division option
-  //enter in the division and click to select
-}
-
-function setDepartment(division: string) {
-}
-
-function setBranch(division: string) {
-}
-
-
-export const PunchComponent = {
-  punchButton,
-  regPunchNoteTextField,
-  manualPunchNoteTextField,
-  addPunch,
-  setPunchNote,
-  setDepartment,
-  setBranch,
+export {
+  PunchButtonByType,
+  createDashboardPunch,
+  pauseBetweenPunches,
+  SetNote,
+  SetDepartment,
+  SetBranch,
+  SetDivision,
+  validateCostCenterText
 }

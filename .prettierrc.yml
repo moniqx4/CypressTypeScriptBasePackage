@@ -1,1 +1,5 @@
-{ "arrowParens": always, "semi": false, "singleQuote": true" }
+{ 
+  "arrowParens": always,
+  "semi": false,
+  "singleQuote": true"
+}

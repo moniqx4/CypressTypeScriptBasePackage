@@ -2,7 +2,13 @@
   "compilerOptions": {
     "target": "es5",
     "lib": ["es5", "dom"],
-    "types": ["cypress"]
+    "types": ["cypress"],
+    "baseUrl": ".",
+    "paths": {
+      "pageObjects": ["cypress/page-objects/"],
+      "tests": ["cypress/integration/tests"]
+    }
   },
-  "include": ["**/*.ts"]
+  "include": ["**/*.ts"], 
+  "exclude": ["node_modules", "**/*.spec.ts"]
 }
